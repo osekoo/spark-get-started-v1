@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  spark-get-started-spark-master:
+    image: ghcr.io/osekoo/spark:3.5.0
+    container_name: spark-get-started-spark-master
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - '${SPARK_MASTER_PORT:-7077}:${SPARK_MASTER_PORT:-7077}'
+      - '${SPARK_WEBUI_PORT:-8080}:${SPARK_WEBUI_PORT:-8080}'
+
+  spark-worker:
+    image: ghcr.io/osekoo/spark:3.5.0
+    env_file:
+      - .env
+    environment:
+      - SPARK_MODE=worker
+    deploy:
+      replicas: ${SPARK_WORKERS:-2 }
+    depends_on:
+      - spark-get-started-spark-master
+
+  spark-get-started-spark-submit:
+    image: ghcr.io/osekoo/spark:3.5.0
+    container_name: spark-get-started-spark-submit
+    env_file:
+      - .env
+    environment:
+      - SPARK_MODE=client
+    ports:
+      - '${SPARK_APP_PORT:-4040}:${SPARK_APP_PORT:-4040}'
+    volumes:
+      - "./:/app"
+    depends_on:
+      - spark-worker
+

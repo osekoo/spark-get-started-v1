@@ -1,0 +1,11 @@
+[debug] Created transactional ClassFileManager with tempDir = /app/target/scala-2.12/classes.bak
+[debug] About to delete class files:
+[debug] We backup class files:
+[debug] Created transactional ClassFileManager with tempDir = /app/target/scala-2.12/classes.bak
+[debug] About to delete class files:
+[debug] We backup class files:
+[debug] Registering generated classes:
+[debug] 	Main.class
+[debug] 	Main$$typecreator1$1.class
+[debug] 	Main$.class
+[debug] Removing the temporary directory used for backing up class files: /app/target/scala-2.12/classes.bak

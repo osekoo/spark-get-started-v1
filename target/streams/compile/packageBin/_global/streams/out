@@ -1,0 +1,9 @@
+[debug] Packaging /app/target/scala-2.12/spark-get-started_2.12-0.1.jar ...
+[debug] Input file mappings:
+[debug] 	Main$$typecreator1$1.class
+[debug] 	  /app/target/scala-2.12/classes/Main$$typecreator1$1.class
+[debug] 	Main$.class
+[debug] 	  /app/target/scala-2.12/classes/Main$.class
+[debug] 	Main.class
+[debug] 	  /app/target/scala-2.12/classes/Main.class
+[debug] Done packaging.
