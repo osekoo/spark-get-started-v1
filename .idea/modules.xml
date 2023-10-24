@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Spark Get Started.iml" filepath="$PROJECT_DIR$/.idea/modules/Spark Get Started.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Spark Get Started-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Spark Get Started-build.iml" />
-    </modules>
-  </component>
-</project>
