@@ -1,6 +1,3 @@
-import net.ruippeixotog.scalascraper.browser.JsoupBrowser
-import net.ruippeixotog.scalascraper.dsl.DSL.deepFunctorOps
-import net.ruippeixotog.scalascraper.scraper.ContentExtractors.allText
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.feature.{RegexTokenizer, StopWordsRemover}
@@ -21,17 +18,12 @@ object Main {
   def main(args: Array[String]): Unit = {
     logger.info("Initializing spark context...")
     val spark: SparkSession = SparkSession.builder()
-      .appName(s"WordCount")
+      .appName(s"Spark get Started")
       .getOrCreate()
 
-    val filePaths = System.getenv("APP_FILES")
-      .split(",")
-    var allContent = ""
-    for (filePath <- filePaths) {
-      logger.info(s"loading text from $filePath ...")
-      allContent += readContent(filePath) + "\n"
-    }
-    val data = spark.createDataFrame(Seq((0, allContent)))
+    val filePath = "ulysses.txt"
+    val allContent = Source.fromFile(filePath, "UTF-8")
+    val data = spark.createDataFrame(Seq((0, allContent.mkString)))
       .toDF("id", "sentence")
 
     logger.info("tokenizing the input text...")
@@ -74,15 +66,5 @@ object Main {
     logger.info("saving the dataframe in parquet format...")
     wordCountDf.write.mode(SaveMode.Overwrite)
       .parquet("./tokens.parquet")
-  }
-
-  private def readContent(path: String): String = {
-    if (path.startsWith("http")) {
-      val s = Source.fromURL(path, "UTF-8")
-      JsoupBrowser().parseString(s.mkString) >> allText
-    } else {
-      val s = Source.fromFile(path, "UTF-8")
-      s.mkString
-    }
   }
 }

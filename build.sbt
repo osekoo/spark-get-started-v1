@@ -1,14 +1,21 @@
+organization := sys.env.get("APP_ORGANIZATION").getOrElse("org.compnay.dev")
 
-name := sys.env.getOrElse("APP_NAME", "Spark Get Started") // the project's name
-version := sys.env.getOrElse("APP_VERSION", "0.1") // the application version
-scalaVersion := sys.env.getOrElse("SCALA_FULL_VERSION", "2.12.18") // version of Scala we want to use (this should be in line with the version of Spark framework)
-organization := "com.osekoo.dev"
+name := sys.env.get("APP_NAME").getOrElse("spark-get-started") // the project's name
 
-val sparkVersion = sys.env.getOrElse("SPARK_VERSION", "3.5.0")
+version := sys.env.get("APP_VERSION").getOrElse("1.0-SNAPSHOT") // the application version
+
+scalaVersion := sys.env.get("SCALA_VERSION").getOrElse("2.12.18") // version of Scala we want to use (this should be in line with the version of Spark framework)
+
+crossTarget := baseDirectory.value
+
+artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
+  sys.env.get("APP_PACKAGE").getOrElse("bin/spark-get-started-1.0-SNAPSHOT.jar")
+}
+
+val sparkVersion = sys.env.get("SPARK_VERSION").getOrElse("3.5.0")
 
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
   "org.apache.spark" %% "spark-sql" % sparkVersion,
-  "org.apache.spark" %% "spark-mllib" % sparkVersion % "provided",
-  "net.ruippeixotog" %% "scala-scraper" % "3.1.0"
+  "org.apache.spark" %% "spark-mllib" % sparkVersion % "provided"
 )

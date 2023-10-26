@@ -4,6 +4,8 @@ services:
   spark-get-started-spark-master:
     image: ghcr.io/osekoo/spark:3.5.0
     container_name: spark-get-started-spark-master
+    build:
+      context: ../../..
     environment:
       - SPARK_MODE=master
     ports:
@@ -17,13 +19,13 @@ services:
     environment:
       - SPARK_MODE=worker
     deploy:
-      replicas: ${SPARK_WORKERS:-2 }
+      replicas: ${SPARK_WORKERS:-2}
     depends_on:
       - spark-get-started-spark-master
 
-  spark-get-started-spark-submit:
+  spark-get-started-spark-client:
     image: ghcr.io/osekoo/spark:3.5.0
-    container_name: spark-get-started-spark-submit
+    container_name: spark-get-started-spark-client
     env_file:
       - .env
     environment:
@@ -32,6 +34,7 @@ services:
       - '${SPARK_APP_PORT:-4040}:${SPARK_APP_PORT:-4040}'
     volumes:
       - "./:/app"
+      - "~/.ivy2:/root/.ivy2"
+      - "~/.sbt:/root/.sbt"
     depends_on:
       - spark-worker
-

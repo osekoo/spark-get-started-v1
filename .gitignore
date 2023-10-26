@@ -8,3 +8,6 @@ hs_err_pid*
 /tokens.parquet/
 /.bsp/
 /target/
+/project/
+/spark-get-started-1.0-SNAPSHOT.jar
+/update/
